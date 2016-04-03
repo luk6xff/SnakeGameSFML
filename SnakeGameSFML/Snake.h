@@ -1,12 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Textbox.h"
-#include <vector>
 
-struct SnakeSegment{
-	SnakeSegment(int x, int y) : position(x,y){}
-	sf::Vector2i position;
-};
+#include "SnakeSegment.h"
+
+#include <vector>
 
 using SnakeBodyContainer = std::vector<SnakeSegment>;
 enum class Direction{ None, Up, Down, Left, Right };
@@ -32,7 +29,7 @@ public:
 	Direction getPhysicalDirection();
 
 	void extend(); // Grow the snake.
-	void reset(); // Reset to starting position.
+	void reset(); // Reset to starting position().
 
 	void move(); // Movement method.
 	void tick(); // Update method.
