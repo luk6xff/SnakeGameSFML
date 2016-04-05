@@ -92,13 +92,13 @@ void Snake::extend()
 	if (mSnakeBody.size() > 1) 
 	{
 		SnakeSegment &preLastTailSegment = mSnakeBody[mSnakeBody.size()-2];
-		std::cout << "Extend " << preLastTailSegment.getPosition().x << " " << lastTailSegment.getPosition().x << std::endl;
+		//std::cout << "Extend " << preLastTailSegment.getPosition().x << " " << lastTailSegment.getPosition().x << std::endl;
 		if (preLastTailSegment.getPosition().x == lastTailSegment.getPosition().x) 
 		{
 			if (preLastTailSegment.getPosition().y > lastTailSegment.getPosition().y)
 			{
 				mSnakeBody.push_back(SnakeSegment(lastTailSegment.getPosition().x, lastTailSegment.getPosition().y - 1));
-				std::cout << "Extend " << mSnakeBody.size();
+				//std::cout << "Extend " << mSnakeBody.size();
 			}
 			else 
 			{
@@ -150,7 +150,7 @@ void Snake::reset()
 	mSnakeBody.push_back(SnakeSegment(5, 6));
 	mSnakeBody.push_back(SnakeSegment(5, 5));
 	setDirection(Direction::None); 
-	mSpeed = 15;
+	mSpeed = 10;
 	mLives = 3;
 	mScore = 0;
 	mLost = false;
@@ -232,15 +232,14 @@ void Snake::render(sf::RenderWindow& window)
 	}
 
 	auto snakeHead = mSnakeBody.begin();
-	mBodyRect.setFillColor(sf::Color::Blue);
-	mBodyRect.setPosition(snakeHead->getPosition().x*mSize, snakeHead->getPosition().y*mSize);
-	window.draw(mBodyRect);
-
-	mBodyRect.setFillColor(sf::Color::Green);
+	snakeHead->setColor(sf::Color::Blue);
+	snakeHead->update();
+	window.draw(*snakeHead);
 	for (auto itr = mSnakeBody.begin() + 1; itr != mSnakeBody.end(); ++itr) 
 	{
-		mBodyRect.setPosition(itr->getPosition().x*mSize, itr->getPosition().y*mSize);
-		window.draw(mBodyRect);
+		itr->setColor(sf::Color::Green);
+		itr->update();
+		window.draw(*itr);
 	}
 
 }

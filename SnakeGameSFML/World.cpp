@@ -1,12 +1,11 @@
 #include "World.h"
 
-World::World(sf::Vector2u windSize){
+World::World(sf::Vector2u windSize):mApple(30,30){
 	mBlockSize = 16;
 
 	mWindowSize = windSize;
-	respawnApple();
-	mAppleShape.setFillColor(sf::Color::Red);
-	mAppleShape.setRadius(mBlockSize / 2);
+	mApple.putApple(mWindowSize);
+	mApple.setColor(sf::Color::Red);
 
 	for(int i = 0; i < 4; ++i){
 		mBounds[i].setFillColor(sf::Color(150,0,0));
@@ -28,21 +27,11 @@ World::~World(){}
 
 int World::getBlockSize(){ return mBlockSize; }
 
-void World::respawnApple(){
-	int maxX = (mWindowSize.x / mBlockSize) - 2;
-	int maxY = (mWindowSize.y / mBlockSize) - 2;
-	mItem = sf::Vector2i(
-		rand() % maxX + 1, rand() % maxY + 1);
-	mAppleShape.setPosition(
-		mItem.x * mBlockSize,
-		mItem.y * mBlockSize);
-}
-
 void World::update(Snake& player){
-	if(player.getPosition() == mItem){
+	if(player.getPosition() == static_cast<sf::Vector2i>(mApple.getPosition())){
 		player.extend();
 		player.increaseScore();
-		respawnApple();
+		mApple.putApple(mWindowSize);
 	}
 
 	int gridSize_x = mWindowSize.x / mBlockSize;
@@ -61,5 +50,5 @@ void World::render(sf::RenderWindow& window){
 	for(int i = 0; i < 4; ++i){
 		window.draw(mBounds[i]);
 	}
-	window.draw(mAppleShape);
+	window.draw(mApple);
 }

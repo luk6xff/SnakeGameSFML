@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
+#include "Apple.h"
 
 class World{
 public:
@@ -8,16 +9,13 @@ public:
 	~World();
 
 	int getBlockSize();
-
-	void respawnApple();
-
 	void update(Snake& player);
 	void render(sf::RenderWindow& window);
 private:
 	sf::Vector2u mWindowSize;
 	sf::Vector2i mItem;
 	int mBlockSize;
-
+	Apple mApple;
 	sf::CircleShape mAppleShape;
 	sf::RectangleShape mBounds[4];
 };
