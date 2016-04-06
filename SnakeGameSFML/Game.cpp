@@ -2,7 +2,7 @@
 
 Game::Game() : mWindow("Snake", sf::Vector2u(800, 600)),
 	mSnake(mWorld.getBlockSize()),
-	mWorld(sf::Vector2u(800, 600))
+	mWorld(sf::Vector2u(800, 600),16)
 {
 	mClock.restart();
 	srand(time(nullptr));

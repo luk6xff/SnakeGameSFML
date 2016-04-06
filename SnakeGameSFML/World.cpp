@@ -1,8 +1,6 @@
 #include "World.h"
-
-World::World(sf::Vector2u windSize):mApple(30,30){
-	mBlockSize = 16;
-
+#include <iostream>
+World::World(sf::Vector2u windSize, int blockSize):mBlockSize(blockSize),mApple(0,0, mBlockSize), mSnake(mBlockSize){
 	mWindowSize = windSize;
 	mApple.putApple(mWindowSize);
 	mApple.setColor(sf::Color::Red);
@@ -28,10 +26,16 @@ World::~World(){}
 int World::getBlockSize(){ return mBlockSize; }
 
 void World::update(Snake& player){
-	if(player.getPosition() == static_cast<sf::Vector2i>(mApple.getPosition())){
+	std::cout << player.getPosition().x<<" ";
+	std::cout << player.getPosition().y << std:: endl;
+	std::cout << "APP: "<< mApple.getPosition().x << " ";
+	std::cout << mApple.getPosition().y << std::endl;
+	if(player.getPosition() == mApple.getPosition())
+	{
 		player.extend();
 		player.increaseScore();
 		mApple.putApple(mWindowSize);
+		std::cout << "increased";
 	}
 
 	int gridSize_x = mWindowSize.x / mBlockSize;

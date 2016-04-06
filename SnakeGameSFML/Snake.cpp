@@ -26,9 +26,9 @@ int Snake::getSpeed()
 	return mSpeed; 
 }
 
-sf::Vector2i Snake::getPosition()
+sf::Vector2f Snake::getPosition()
 {
-	return (!mSnakeBody.empty() ? static_cast<sf::Vector2i>(mSnakeBody.front().getPosition()) : sf::Vector2i(1,1));
+	return (!mSnakeBody.empty() ? (mSnakeBody.front().getPosition()) : sf::Vector2f(1,1));
 }
 
 int Snake::getLives()

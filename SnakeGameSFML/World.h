@@ -5,7 +5,7 @@
 
 class World{
 public:
-	World(sf::Vector2u windSize);
+	explicit World(sf::Vector2u windSize, int blockSize);
 	~World();
 
 	int getBlockSize();
@@ -16,6 +16,7 @@ private:
 	sf::Vector2i mItem;
 	int mBlockSize;
 	Apple mApple;
+	Snake mSnake;
 	sf::CircleShape mAppleShape;
 	sf::RectangleShape mBounds[4];
 };

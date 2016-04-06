@@ -8,7 +8,7 @@
 class  SnakeSegment :public Entity {
 public:
 	explicit SnakeSegment(int x, int y, const sf::Texture& texture, int segmentSize=16);
-	SnakeSegment(int x, int y,int segmentSize= 16);
+	SnakeSegment(int x, int y,int segmentSize);
 
 	void update();
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;

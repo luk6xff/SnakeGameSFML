@@ -17,7 +17,7 @@ public:
 	void setDirection(Direction dir);
 	Direction getDirection();
 	int getSpeed();
-	sf::Vector2i getPosition();
+	sf::Vector2f getPosition();
 	int getLives();
 	int getScore();
 	void increaseScore();

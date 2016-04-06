@@ -7,7 +7,7 @@ class Apple :
 {
 public:
 	Apple(int posX, int posY, const sf::Texture& texture,int appleSize =16);
-	explicit Apple(int x, int y, int appleSize = 16);
+	explicit Apple(int x, int y, int appleSize);
 	~Apple();
 
 	void update() override;
