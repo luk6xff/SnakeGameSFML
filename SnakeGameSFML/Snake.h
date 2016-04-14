@@ -32,8 +32,8 @@ public:
 	void reset(); // Reset to starting position().
 
 	void move(); // Movement method.
-	void tick(); // Update method.
-	void cut(int l_segments); // Method for cutting snake.
+	void update(); // Update method.
+	void cut(int segments); // Method for cutting snake.
 	void render(sf::RenderWindow& lWindow);
 private:
 	void checkCollision(); // Checking collisions.

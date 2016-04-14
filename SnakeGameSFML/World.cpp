@@ -25,15 +25,17 @@ World::~World(){}
 
 int World::getBlockSize(){ return mBlockSize; }
 
-void World::update(Snake& player){
-	std::cout << player.getPosition().x<<" ";
-	std::cout << player.getPosition().y << std:: endl;
+void World::update(){
+	/*std::cout << mSnake.getPosition().x<<" ";
+	std::cout << mSnake.getPosition().y << std:: endl;
 	std::cout << "APP: "<< mApple.getPosition().x << " ";
 	std::cout << mApple.getPosition().y << std::endl;
-	if(player.getPosition() == mApple.getPosition())
+	*/
+	mSnake.update();
+	if(mSnake.getPosition() == mApple.getPosition())
 	{
-		player.extend();
-		player.increaseScore();
+		mSnake.extend();
+		mSnake.increaseScore();
 		mApple.putApple(mWindowSize);
 		std::cout << "increased";
 	}
@@ -41,12 +43,15 @@ void World::update(Snake& player){
 	int gridSize_x = mWindowSize.x / mBlockSize;
 	int gridSize_y = mWindowSize.y / mBlockSize;
 
-	if(player.getPosition().x <= 0 ||
-		player.getPosition().y <= 0 ||
-		player.getPosition().x >= gridSize_x - 1 ||
-		player.getPosition().y >= gridSize_y - 1)
+	if(mSnake.getPosition().x <= 0 ||
+		mSnake.getPosition().y <= 0 ||
+		mSnake.getPosition().x >= gridSize_x - 1 ||
+		mSnake.getPosition().y >= gridSize_y - 1)
 	{
-			player.lose();
+		mSnake.lose();
+	}
+	if (mSnake.hasLost()) {
+		mSnake.reset();
 	}
 }
 
@@ -55,4 +60,5 @@ void World::render(sf::RenderWindow& window){
 		window.draw(mBounds[i]);
 	}
 	window.draw(mApple);
+	mSnake.render(window);
 }

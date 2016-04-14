@@ -22,5 +22,4 @@ private:
 	float mElapsed;
 
 	World mWorld;
-	Snake mSnake;
 };

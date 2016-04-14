@@ -9,7 +9,7 @@ public:
 	~World();
 
 	int getBlockSize();
-	void update(Snake& player);
+	void update();
 	void render(sf::RenderWindow& window);
 private:
 	sf::Vector2u mWindowSize;
