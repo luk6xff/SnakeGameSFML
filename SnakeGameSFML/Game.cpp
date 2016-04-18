@@ -3,6 +3,7 @@
 Game::Game() : mWindow("Snake", sf::Vector2u(800, 600)),
 	mWorld(sf::Vector2u(800, 600),16)
 {
+	mWorld.setupEventHandling(getWindow()->getEventManager());
 	mClock.restart();
 	srand(time(nullptr));
 
@@ -29,24 +30,6 @@ Window* Game::getWindow()
 	return &mWindow; 
 }
 
-void Game::handleInput()
-{
-	// Input handling.
-	/*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) 
-		&& mSnake.getPhysicalDirection() != Direction::Down){
-		mSnake.setDirection(Direction::Up);
-	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) 
-		&& mSnake.getPhysicalDirection() != Direction::Up){
-		mSnake.setDirection(Direction::Down);
-	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) 
-		&& mSnake.getPhysicalDirection() != Direction::Right){
-		mSnake.setDirection(Direction::Left);
-	} else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) 
-		&& mSnake.getPhysicalDirection() != Direction::Left){
-		mSnake.setDirection(Direction::Right);
-	}
-	*/
-}
 
 void Game::update()
 {

@@ -1,4 +1,5 @@
 #include "Snake.h"
+
 #include <iostream>
 
 Snake::Snake(int blockSize):mBodyRect(){
@@ -9,6 +10,29 @@ Snake::Snake(int blockSize):mBodyRect(){
 
 Snake::~Snake()
 {
+}
+
+void Snake::handleButton(EventDetails* evDetails)
+{
+	if (evDetails == nullptr)
+		return;
+	
+	if (evDetails->mKeyCode == sf::Keyboard::D)
+	{
+		setDirection(Direction::Right);
+	}
+	else if (evDetails->mKeyCode == sf::Keyboard::A)
+	{
+		setDirection(Direction::Left);
+	}
+	else if (evDetails->mKeyCode == sf::Keyboard::W)
+	{
+		setDirection(Direction::Up);
+	}
+	else if (evDetails->mKeyCode == sf::Keyboard::S)
+	{
+		setDirection(Direction::Down);
+	}
 }
 
 void Snake::setDirection(Direction dir)

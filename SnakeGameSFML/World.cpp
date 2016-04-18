@@ -23,6 +23,13 @@ World::World(sf::Vector2u windSize, int blockSize):mBlockSize(blockSize),mApple(
 
 World::~World(){}
 
+
+bool World::setupEventHandling(EventManager * evManager)
+{
+	evManager->addCallback(StateType(3), "ChangeDirection", &Snake::handleButton, &mSnake);
+	return false;
+}
+
 int World::getBlockSize(){ return mBlockSize; }
 
 void World::update(){

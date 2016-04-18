@@ -10,10 +10,10 @@
 
 enum class EventType
 {
-	KeyDown = sf::Event::KeyPressed,
-	KeyUp = sf::Event::KeyReleased,
-	MButtonDown = sf::Event::MouseButtonPressed,
-	MButtonUp = sf::Event::MouseButtonReleased,
+	KeyPressed = sf::Event::KeyPressed,
+	KeyReleased = sf::Event::KeyReleased,
+	MButtonPressed = sf::Event::MouseButtonPressed,
+	MButtonReleased = sf::Event::MouseButtonReleased,
 	MouseWheel = sf::Event::MouseWheelMoved,
 	WindowResized = sf::Event::Resized,
 	GainedFocus = sf::Event::GainedFocus,
@@ -66,32 +66,55 @@ struct EventDetails {
 
 
 using Events = std::vector<std::pair<EventType, EventInfo>>;
+
 struct Binding
 {
-	Binding(const std::string& name) : mName(name), mEventDetails(name) {}
-	void bindEvent(EventType type, EventInfo info = EventInfo()) {
+	Binding(const std::string& name) : mName(name), mEventDetails(name), mOccurenceCounter(0){}
+	
+	void bindEvent(EventType type, EventInfo info = EventInfo()) 
+	{
 		mEvents.emplace_back(type, info);
 	}
+	
+	void clear()
+	{
+		mEventDetails.clear();
+		mOccurenceCounter = 0;
+	}
+
 	Events mEvents;
 	std::string mName;
 	EventDetails mEventDetails;
+	int mOccurenceCounter;
+
+
 
 };
 
 
 
 using Bindings = std::unordered_map<std::string, Binding*>;
-using Callbacks = std::unordered_map<std::string, std::function<void()>>;
+// Callback container.
+using CallbackContainer = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+// State callback container.
+enum class StateType;
+using Callbacks = std::unordered_map<StateType, CallbackContainer>;
 
 class EventManager
 {
 public:
 	EventManager();
 	~EventManager();
-
+	EventManager(const EventManager& evMng) = delete;
+	EventManager operator=(const EventManager& evMng) = delete;
 
 	bool addBinding(Binding *binding);
 	bool removeBinding(const std::string& name);
+
+	inline void setCurrentState(StateType state)
+	{
+		mCurrentState = state;
+	}
 
 	inline void setFocus(const bool& focus)
 	{
@@ -99,18 +122,27 @@ public:
 	}
 	
 	template<class T>
-	bool addCallback(const std::string& name, void(T::*func)(), T* instance) 
+	bool addCallback(StateType stateType, const std::string& name, void(T::*func)(EventDetails*), T* instance) 
 	{
+		auto itr = mCallbacks.emplace(stateType, CallbackContainer()).first;
 		auto temp = std::bind(func, instance, std::placeholders::_1);
-		return mCallbacks.emplace(name, temp).second;
+		return itr->second.emplace(name, temp).second;
 	}
 
-	void removeCallback(const std::string& name) 
+	bool removeCallback(StateType stateType, const std::string& name)
 	{
-		mCallbacks.erase(name);	
+		auto itr = mCallbacks.find(stateType);
+		if (itr == mCallbacks.end()) { return false; }
+		auto callbackItr = itr->second.find(name);
+		if (callbackItr == itr->second.end()) { return false; }
+		itr->second.erase(name);
+		return true;
 	}
 
+	//window polling events
 	void handleEvent(sf::Event& event);
+
+	//real time events
 	void update();
 
 	inline sf::Vector2i getMousePosition(sf::RenderWindow* window = nullptr)
@@ -122,6 +154,7 @@ public:
 private:
 	void loadBindings();
 
+	StateType mCurrentState;
 	Callbacks mCallbacks;
 	Bindings mBindings;
 	bool mHasFocus;

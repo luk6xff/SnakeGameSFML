@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "SnakeSegment.h"
+#include "EventManager.h"
 
 #include <vector>
 
@@ -35,6 +36,8 @@ public:
 	void update(); // Update method.
 	void cut(int segments); // Method for cutting snake.
 	void render(sf::RenderWindow& lWindow);
+
+	void Snake::handleButton(EventDetails* evDetails);
 private:
 	void checkCollision(); // Checking collisions.
 

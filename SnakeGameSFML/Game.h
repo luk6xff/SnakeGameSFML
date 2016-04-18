@@ -8,18 +8,17 @@ public:
 	Game();
 	~Game();
 
-	void handleInput();
 	void update();
 	void render();
 
 	sf::Time getElapsed();
 	void restartClock();
-
 	Window* getWindow();
 private:
 	Window mWindow;
+	World mWorld;
 	sf::Clock mClock;
 	float mElapsed;
 
-	World mWorld;
+	
 };
