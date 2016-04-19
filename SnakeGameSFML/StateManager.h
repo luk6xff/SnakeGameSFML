@@ -42,8 +42,8 @@ private:
 	void removeState(const StateType& stateType);
 
 	template<class T>
-	void RegisterState(const StateType& stateType) {
-		m_stateFactory[stateType] = [this]() -> BaseState*
+	void registerState(const StateType& stateType) {
+		mStateFactory[stateType] = [this]() -> BaseState*
 		{
 			return new T(this);
 		};

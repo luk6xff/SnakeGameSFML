@@ -83,7 +83,8 @@ void Window::toggleFullScreen(EventDetails* evDetails)
 	create();
 }
 
-void Window::close (EventDetails* evDetails) {
+void Window::close (EventDetails* evDetails) 
+{
 	mIsDone = true;
 }
 
@@ -91,7 +92,8 @@ void Window::close (EventDetails* evDetails) {
 void Window::update()
 {
 	sf::Event event;
-	while(mWindow.pollEvent(event)){
+	while(mWindow.pollEvent(event))
+	{
 		if (event.type == sf::Event::LostFocus) 
 		{
 			mIsFocused = false;

@@ -9,7 +9,7 @@ public:
 	explicit World(sf::Vector2u windSize, int blockSize);
 	~World();
 
-	bool setupEventHandling(EventManager* evManager);
+	bool setupEventHandling(StateType stateType,EventManager* evManager);
 	int getBlockSize();
 	void update();
 	void render(sf::RenderWindow& window);

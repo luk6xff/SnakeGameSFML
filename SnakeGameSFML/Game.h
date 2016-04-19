@@ -1,7 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "World.h"
-#include "Snake.h"
+#include "StateContext.h"
+#include "StateManager.h"
 
 class Game{
 public:
@@ -16,9 +17,11 @@ public:
 	Window* getWindow();
 private:
 	Window mWindow;
-	World mWorld;
+	StateContext mStateContext;
+	StateManager mStateManager;
+
 	sf::Clock mClock;
-	float mElapsed;
+	sf::Time mElapsedTime;
 
 	
 };

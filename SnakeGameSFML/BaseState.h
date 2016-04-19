@@ -1,11 +1,15 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class StateManager;
+
 class BaseState
 {
-
 public:	
-	BaseState(){}
+	explicit BaseState(StateManager * const stateManager)
+	{
+		mStateManager = stateManager;
+	}
 
 	virtual ~BaseState() {}
 
@@ -17,5 +21,12 @@ public:
 
 	virtual void update(const sf::Time& time) = 0;
 	virtual void draw() = 0;
+
+	StateManager* getStateManager()
+	{
+		return mStateManager;
+	}
+protected:
+	StateManager * mStateManager;
 
 };

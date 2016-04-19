@@ -1,14 +1,10 @@
 #include "Game.h"
 
-Game::Game() : mWindow("Snake", sf::Vector2u(800, 600)),
-	mWorld(sf::Vector2u(800, 600),16)
+Game::Game() : mWindow("Snake", sf::Vector2u(800, 600)),mStateContext(&mWindow,mWindow.getEventManager()),mStateManager(&mStateContext)
 {
-	mWorld.setupEventHandling(getWindow()->getEventManager());
 	mClock.restart();
 	srand(time(nullptr));
-
-	mElapsed = 0.0f;
-
+	mStateManager.switchTo(StateType::Game);
 }
 
 Game::~Game()
@@ -22,7 +18,7 @@ sf::Time Game::getElapsed()
 
 void Game::restartClock()
 { 
-	mElapsed += mClock.restart().asSeconds(); 
+	mElapsedTime = mClock.restart(); 
 }
 
 Window* Game::getWindow()
@@ -34,16 +30,13 @@ Window* Game::getWindow()
 void Game::update()
 {
 	mWindow.update();
-	float timestep = 1.0f / 10;// mSnake.getSpeed();
-	if(mElapsed >= timestep){
-		mWorld.update();
-		mElapsed -= timestep;
-	}
+	mStateManager.update(mElapsedTime);
 }
 
 void Game::render()
 {
 	mWindow.beginDraw();
-	mWorld.render(*mWindow.getRenderWindow());
+	mStateManager.draw();
 	mWindow.endDraw();
+	restartClock();
 }

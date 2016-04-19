@@ -1,6 +1,7 @@
 #include "World.h"
 #include <iostream>
-World::World(sf::Vector2u windSize, int blockSize):mBlockSize(blockSize),mApple(0,0, mBlockSize), mSnake(mBlockSize){
+World::World(sf::Vector2u windSize, int blockSize):mBlockSize(blockSize),mApple(0,0, mBlockSize), mSnake(mBlockSize)
+{
 	mWindowSize = windSize;
 	mApple.putApple(mWindowSize);
 	mApple.setColor(sf::Color::Red);
@@ -24,15 +25,19 @@ World::World(sf::Vector2u windSize, int blockSize):mBlockSize(blockSize),mApple(
 World::~World(){}
 
 
-bool World::setupEventHandling(EventManager * evManager)
+bool World::setupEventHandling(StateType stateType, EventManager * evManager)
 {
-	evManager->addCallback(StateType(3), "ChangeDirection", &Snake::handleButton, &mSnake);
+	evManager->addCallback(stateType, "ChangeDirection", &Snake::handleButton, &mSnake);
 	return false;
 }
 
-int World::getBlockSize(){ return mBlockSize; }
+int World::getBlockSize()
+{ 
+	return mBlockSize; 
+}
 
-void World::update(){
+void World::update()
+{
 	/*std::cout << mSnake.getPosition().x<<" ";
 	std::cout << mSnake.getPosition().y << std:: endl;
 	std::cout << "APP: "<< mApple.getPosition().x << " ";
@@ -47,23 +52,26 @@ void World::update(){
 		std::cout << "increased";
 	}
 
-	int gridSize_x = mWindowSize.x / mBlockSize;
-	int gridSize_y = mWindowSize.y / mBlockSize;
+	int gridSizeX = mWindowSize.x / mBlockSize;
+	int gridSizeY = mWindowSize.y / mBlockSize;
 
 	if(mSnake.getPosition().x <= 0 ||
 		mSnake.getPosition().y <= 0 ||
-		mSnake.getPosition().x >= gridSize_x - 1 ||
-		mSnake.getPosition().y >= gridSize_y - 1)
+		mSnake.getPosition().x >= gridSizeX - 1 ||
+		mSnake.getPosition().y >= gridSizeY - 1)
 	{
 		mSnake.lose();
 	}
-	if (mSnake.hasLost()) {
+	if (mSnake.hasLost()) 
+	{
 		mSnake.reset();
 	}
 }
 
-void World::render(sf::RenderWindow& window){
-	for(int i = 0; i < 4; ++i){
+void World::render(sf::RenderWindow& window)
+{
+	for(int i = 0; i < 4; ++i)
+	{
 		window.draw(mBounds[i]);
 	}
 	window.draw(mApple);

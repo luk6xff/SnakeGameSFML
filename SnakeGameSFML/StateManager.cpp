@@ -1,11 +1,15 @@
 #include "StateManager.h"
-
+#include "StateMainMenu.h"
+#include "StateGame.h"
 
 
 
 
 StateManager::StateManager(StateContext* const context):mContext(context)
 {
+	registerState<StateMainMenu>(StateType::MainMenu);
+	registerState<StateGame>(StateType::Game);
+
 }
 
 StateManager::~StateManager()
@@ -28,7 +32,6 @@ void StateManager::update(const sf::Time & time)
 	{
 	
 	}
-
 	else*/ 
 	{//should be always met
 		mStates.back().second->update(time);
@@ -72,10 +75,14 @@ void StateManager::switchTo(const StateType & stateType)
 		}
 	}
 
-	// State with givenstateType wasn't found.
-	if (!mStates.empty()) { mStates.back().second->deactivate(); }
-	createState(stateType);
-	mStates.back().second->activate();
+	// State with given stateType wasn't found.
+	if (!mStates.empty()) 
+	{ 
+		mStates.back().second->deactivate(); 
+		createState(stateType);
+		mStates.back().second->activate();
+	}
+	
 }
 
 void StateManager::remove(const StateType & stateType)

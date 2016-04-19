@@ -4,7 +4,7 @@ class StateMainMenu :
 	public BaseState
 {
 public:
-	StateMainMenu();
+	StateMainMenu(StateManager* stateManager);
 	~StateMainMenu();
 };
 
