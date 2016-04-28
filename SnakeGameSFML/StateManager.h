@@ -24,7 +24,7 @@ using StateFactory = std::unordered_map<StateType, std::function<BaseState*(void
 class StateManager
 {
 public:
-	explicit StateManager(StateContext* const context);
+	explicit StateManager(StateContext* context);
 	~StateManager();
 
 	void update(const sf::Time& time);
@@ -41,11 +41,12 @@ private:
 	void createState(const StateType& stateType);
 	void removeState(const StateType& stateType);
 
-	template<class T>
-	void registerState(const StateType& stateType) {
+	template<class T, typename ... Args>
+	void registerState(const StateType &stateType, Args&&... args) {
 		mStateFactory[stateType] = [this]() -> BaseState*
 		{
-			return new T(this);
+			return new T(this, std::forward<Args>(args)...);
+
 		};
 	}
 

@@ -6,7 +6,8 @@ class StateGame :
 	public BaseState
 {
 public:
-	explicit StateGame(StateManager*const stateManager,sf::Vector2u windSize, int blockSize);
+	explicit StateGame(StateManager* stateManager,sf::Vector2u windSize, int blockSize);
+	StateGame(StateManager* stateManager);
 	~StateGame();
 
 	void onCreate() override;
@@ -18,8 +19,8 @@ public:
 	void update(const sf::Time& time)override;
 	void draw() override;
 
-	void GoToMainMenu(EventDetails* evDetails);
-	void GoToPause(EventDetails* evDetails);
+	void goToMainMenu(EventDetails* evDetails);
+	void goToPause(EventDetails* evDetails);
 
 private:
 	World mWorld;

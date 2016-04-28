@@ -7,9 +7,13 @@ StateGame::StateGame(StateManager* stateManager, sf::Vector2u windSize, int bloc
 {
 	EventManager* evManager = getStateManager()->getStateContext()->mEventManager;
 	mWorld.setupEventHandling(StateType::Game, evManager);
-	evManager->addCallback(StateType::Game, "KeyEscape", &StateGame::GoToMainMenu, this);
-	evManager->addCallback(StateType::Game, "KeyP", &StateGame::GoToPause, this);
+	evManager->addCallback(StateType::Game, "KeyEscape", &StateGame::goToMainMenu, this);
+	evManager->addCallback(StateType::Game, "KeyP", &StateGame::goToPause, this);
 
+}
+
+StateGame::StateGame(StateManager * stateManager) :BaseState(stateManager), mWorld(sf::Vector2u(800,600), 16)
+{
 }
 
 
@@ -47,12 +51,12 @@ void StateGame::draw()
 	mWorld.render(*(getStateManager()->getStateContext()->mWindow->getRenderWindow()));
 }
 
-void StateGame::GoToMainMenu(EventDetails * evDetails)
+void StateGame::goToMainMenu(EventDetails * evDetails)
 {
 	getStateManager()->switchTo(StateType::MainMenu);
 }
 
-void StateGame::GoToPause(EventDetails * evDetails)
+void StateGame::goToPause(EventDetails * evDetails)
 {
 	getStateManager()->switchTo(StateType::Pause);
 }

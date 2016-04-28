@@ -5,7 +5,7 @@
 
 
 
-StateManager::StateManager(StateContext* const context):mContext(context)
+StateManager::StateManager(StateContext* context):mContext(context)
 {
 	registerState<StateMainMenu>(StateType::MainMenu);
 	registerState<StateGame>(StateType::Game);
