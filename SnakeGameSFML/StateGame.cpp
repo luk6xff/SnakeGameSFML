@@ -14,6 +14,10 @@ StateGame::StateGame(StateManager* stateManager, sf::Vector2u windSize, int bloc
 
 StateGame::StateGame(StateManager * stateManager) :BaseState(stateManager), mWorld(sf::Vector2u(800,600), 16)
 {
+	EventManager* evManager = getStateManager()->getStateContext()->mEventManager;
+	mWorld.setupEventHandling(StateType::Game, evManager);
+	evManager->addCallback(StateType::Game, "KeyEscape", &StateGame::goToMainMenu, this);
+	evManager->addCallback(StateType::Game, "KeyP", &StateGame::goToPause, this);
 }
 
 

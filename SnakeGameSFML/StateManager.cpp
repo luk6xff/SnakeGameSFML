@@ -61,8 +61,7 @@ bool StateManager::hasState(const StateType & stateType)
 void StateManager::switchTo(const StateType & stateType)
 {
 	mContext->mEventManager->setCurrentState(stateType);
-	for (auto itr = mStates.begin();
-	itr != mStates.end(); ++itr)
+	for (auto itr = mStates.begin();itr != mStates.end(); ++itr)
 	{
 		if (itr->first == stateType) {
 			mStates.back().second->deactivate();
