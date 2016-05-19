@@ -1,12 +1,15 @@
 #include "StateManager.h"
+#include "StateIntro.h"
 #include "StateMainMenu.h"
 #include "StateGame.h"
 
 
 
 
+
 StateManager::StateManager(StateContext* context):mContext(context)
 {
+	registerState<StateIntro>(StateType::Intro);
 	registerState<StateMainMenu>(StateType::MainMenu);
 	registerState<StateGame>(StateType::Game);
 
@@ -77,10 +80,11 @@ void StateManager::switchTo(const StateType & stateType)
 	// State with given stateType wasn't found.
 	if (!mStates.empty()) 
 	{ 
-		mStates.back().second->deactivate(); 
-		createState(stateType);
-		mStates.back().second->activate();
+		mStates.back().second->deactivate();
 	}
+	createState(stateType);
+	mStates.back().second->activate();
+	
 	
 }
 

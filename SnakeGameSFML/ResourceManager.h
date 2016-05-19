@@ -1,9 +1,11 @@
 #pragma once
 
+#include <SFML/Audio.hpp>
 #include <unordered_map>
 #include <string>
-#include <memory>
-#include <SFML/Audio.hpp>
+#include <memory> //unique ptr
+#include <stdexcept> //runtime_error
+#include <utility> //forward
 
 
 
@@ -26,9 +28,9 @@ private:
 	std::unordered_map<Identifier, std::unique_ptr<Resource>> mResourceMap;
 };
 
-
+//partial template specialization for sf::Music
 template<typename Identifier>
-class ResourceManager<sf::Music, Identifier> //partial specialization for sf::Music
+class ResourceManager<sf::Music, Identifier> 
 {
 public:
 	ResourceManager(const ResourceManager&) = delete;
@@ -51,15 +53,15 @@ template<typename ... Args>
 void ResourceManager<Resource, Identifier>::load(const Identifier& id, Args&& ...args)
 {
 
-	std::unique_ptr<Resource, Identifier> ptr(new Resource);
-	if (not ptr->loadFromFile(std::forward<Args>(args)...))
+	std::unique_ptr<Resource> ptr(new Resource);
+	if (!ptr->loadFromFile(std::forward<Args>(args)...))
 		throw std::runtime_error("Cannot load the file");
 	mResourceMap.emplace(id, std::move(ptr));
 }
 
 
-template<typename RESOURCE, typename IDENTIFIER>
-RESOURCE& ResourceManager<RESOURCE, IDENTIFIER>::get(const IDENTIFIER& id)const
+template<typename Resource, typename Identifier>
+Resource& ResourceManager<Resource, Identifier>::get(const Identifier& id)const
 {
 	return *mResourceMap.at(id);
 }
@@ -71,7 +73,7 @@ void ResourceManager<sf::Music, Identifier>::load(const Identifier& id, Args&& .
 {
 	std::unique_ptr<sf::Music> ptr(new sf::Music);
 
-	if (not ptr->openFromFile(std::forward<Args>(args)...))
+	if (!ptr->openFromFile(std::forward<Args>(args)...))
 		throw std::runtime_error("Impossible to load file");
 	mResourceMap.emplace(id, std::move(ptr));
 };

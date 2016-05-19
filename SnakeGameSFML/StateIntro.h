@@ -2,6 +2,8 @@
 
 #include "BaseState.h"
 #include "EventManager.h"
+#include "StateManager.h"
+
 class StateIntro: public BaseState
 {
 public:
@@ -18,10 +20,11 @@ public:
 	void goToGame(EventDetails*evDetails);
 
 private:
-	sf::Texture mIntroTexture;
 	sf::Sprite mIntroSprite;
 	sf::Text mIntroText;
 	sf::Font mIntroFont;
+
+	float mTimePassed;
 
 
 };

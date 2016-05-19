@@ -7,8 +7,8 @@
 
 enum class StateType 
 {
-	InvalidState=-1,
-	Intro = 0,
+	InvalidState=0,
+	Intro = 1,
 	MainMenu,
 	Game,
 	Pause,
@@ -41,12 +41,11 @@ private:
 	void createState(const StateType& stateType);
 	void removeState(const StateType& stateType);
 
-	template<class T, typename ... Args>
-	void registerState(const StateType &stateType, Args&&... args) {
+	template<class T>
+	void registerState(const StateType &stateType) {
 		mStateFactory[stateType] = [this]() -> BaseState*
 		{
-			return new T(this, std::forward<Args>(args)...);
-
+			return new T(this);
 		};
 	}
 

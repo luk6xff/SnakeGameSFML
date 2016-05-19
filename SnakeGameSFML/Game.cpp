@@ -1,10 +1,11 @@
 #include "Game.h"
-
+#include "Configuration.h"
 Game::Game() : mWindow("Snake", sf::Vector2u(800, 600)),mStateContext(&mWindow,mWindow.getEventManager()),mStateManager(&mStateContext)
 {
+	Configuration::initialize();
 	mClock.restart();
 	srand(time(nullptr));
-	mStateManager.switchTo(StateType::Game);
+	mStateManager.switchTo(StateType::Intro);
 }
 
 Game::~Game()

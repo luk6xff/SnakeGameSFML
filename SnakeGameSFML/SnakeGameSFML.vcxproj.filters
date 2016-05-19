@@ -54,6 +54,12 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="StateIntro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Configuration.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -96,6 +102,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StateContext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StateIntro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Configuration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
