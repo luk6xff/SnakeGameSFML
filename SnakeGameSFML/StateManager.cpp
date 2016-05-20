@@ -31,6 +31,7 @@ void StateManager::update(const sf::Time & time)
 		return;
 	}
 	/*
+
 	if (mStates.back().second->isTranscendent()) 
 	{
 	

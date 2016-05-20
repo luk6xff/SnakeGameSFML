@@ -6,22 +6,25 @@
 
 class Game{
 public:
-	Game();
+	Game(); //ctr
+	//non copyable class
+	Game(const Game&) = delete; //copy ctr
+	Game(const Game&&) = delete; //move ctr
+	Game & operator= (const Game&) = delete; //assignment optr
 	~Game();
 
-	void update();
-	void render();
+	void runWithFixedTimeSteps(int nrOfFramesPerSecond = 60);
+	void runWithVariableTimeSteps();
+	void runWithMinimumTimeSteps(int minNrOfFramesPerSecond = 30);
 
-	sf::Time getElapsed();
-	void restartClock();
-	Window* getWindow();
 private:
 	Window mWindow;
 	StateContext mStateContext;
 	StateManager mStateManager;
-
-	sf::Clock mClock;
-	sf::Time mElapsedTime;
+	
+	void processEvents();// processes all the events
+	void update(sf::Time deltaTime);
+	void render(); //draw all
 
 	
 };

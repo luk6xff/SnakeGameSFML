@@ -19,12 +19,12 @@ void StateIntro::onCreate()
 	
 	mIntroSprite.setTexture(Configuration::textures.get(Configuration::Textures::StateIntroTexture));
 	mIntroSprite.setOrigin(Configuration::textures.get(Configuration::Textures::StateIntroTexture).getSize().x / 2.0f, Configuration::textures.get(Configuration::Textures::StateIntroTexture).getSize().y / 2.0f);
-	mIntroSprite.setPosition(windowSize.x / 2.0f, windowSize.y / 2.0f);
+	mIntroSprite.setPosition(windowSize.x / 2.0f, 0);
 
 	mIntroFont.loadFromFile("media/arial.ttf");
 	mIntroText.setFont(mIntroFont);
 	mIntroText.setString({ "Press SPACE to continue" });
-	mIntroText.setCharacterSize(15);
+	mIntroText.setCharacterSize(20);
 	sf::FloatRect textRect = mIntroText.getLocalBounds();
 	mIntroText.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
@@ -56,7 +56,7 @@ void StateIntro::update(const sf::Time & time)
 	if(mTimePassed<5.0f)
 	{ 
 		mTimePassed += time.asSeconds();
-		mIntroSprite.setPosition(mIntroSprite.getPosition().x,mIntroSprite.getPosition().y + (100 * time.asSeconds()));
+		mIntroSprite.setPosition(mIntroSprite.getPosition().x,mIntroSprite.getPosition().y + (30 * time.asSeconds()));
 	}
 }
 
