@@ -103,10 +103,8 @@ void Window::update()
 		{ 
 			mIsFocused = true; 
 			mEventManager.setFocus(true); 
-		}
-		
+		}	
 		mEventManager.handleEvent(event);
 	}
-
 	mEventManager.update();
 }

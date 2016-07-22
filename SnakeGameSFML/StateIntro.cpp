@@ -53,13 +53,16 @@ void StateIntro::deactivate()
 
 void StateIntro::update(const sf::Time & time)
 {
-	if(mTimePassed<5.0f)
+	
+	if( mTimePassed<5.0f  )
 	{ 
 		mTimePassed += time.asSeconds();
-		mIntroSprite.setPosition(mIntroSprite.getPosition().x,mIntroSprite.getPosition().y + (30 * time.asSeconds()));
+		sf::Vector2u windowSize = getStateManager()->getStateContext()->mWindow->getRenderWindow()->getSize();
+		if(mIntroSprite.getPosition().y <= (windowSize.y))
+			mIntroSprite.setPosition(mIntroSprite.getPosition().x,mIntroSprite.getPosition().y + (100 * time.asSeconds()));
 	}
 }
-
+ 
 void StateIntro::draw()
 {
 	sf::RenderWindow* window = mStateManager->getStateContext()->mWindow->getRenderWindow();

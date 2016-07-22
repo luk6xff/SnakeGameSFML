@@ -22,8 +22,44 @@ enum class EventType
 	MouseLeft = sf::Event::MouseLeft,
 	Closed = sf::Event::Closed,
 	TextEntered = sf::Event::TextEntered,
-	Keyboard = sf::Event::Count + 1, Mouse, Joystick
+	Keyboard = sf::Event::Count + 1, 
+	Mouse, 
+	Joystick
 };
+
+using KeysConfigurationMap = std::unordered_map < std::string, sf::Keyboard::Key> ;
+
+//Since C++14 : )
+const KeysConfigurationMap KeysConfiguration{
+	{ "UP",sf::Keyboard::Up },
+	{ "DOWN",sf::Keyboard::Down },
+	{ "LEFT",sf::Keyboard::Left },
+	{ "RIGHT",sf::Keyboard::Right },
+	{ "W",sf::Keyboard::W },
+	{ "A",sf::Keyboard::A },
+	{ "S",sf::Keyboard::S },
+	{ "D",sf::Keyboard::D },
+	{ "SPACE",sf::Keyboard::Space },
+	{ "ESC",sf::Keyboard::Escape }
+};
+/*
+//C++11
+const KeysConfigurationMap KeysConfiguration = [](){
+	KeysConfigurationMap map;
+	map.insert({ "UP", sf::Keyboard::Up });
+	map.insert({ "DOWN",sf::Keyboard::Down });
+	map.insert({ "LEFT",sf::Keyboard::Left });
+	map.insert({ "RIGHT",sf::Keyboard::Right });
+	map.insert({ "W",sf::Keyboard::W });
+	map.insert({ "A",sf::Keyboard::A });
+	map.insert({ "S",sf::Keyboard::S });
+	map.insert({ "D",sf::Keyboard::D });
+	map.insert({ "SPACE",sf::Keyboard::Space });
+	map.insert({ "ESC",sf::Keyboard::Escape });
+
+	return map;
+}();
+*/
 
 struct EventInfo
 {
@@ -86,9 +122,6 @@ struct Binding
 	std::string mName;
 	EventDetails mEventDetails;
 	int mOccurenceCounter;
-
-
-
 };
 
 

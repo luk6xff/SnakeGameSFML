@@ -52,7 +52,7 @@ void Game::runWithMinimumTimeSteps(int minNrOfFramesPerSecond)
 
 	while (!mWindow.isDone())
 	{
-		processEvents();
+		//processEvents();
 		timeSinceLastUpdate = clock.restart();
 		while (timeSinceLastUpdate > timePerFrame)
 		{

@@ -1,7 +1,7 @@
 #include "Game.h"
 
-void main(int argc, void** argv[]){
-	// Program entry point.
+int main(int argc, void** argv[]){
 	Game game;
 	game.runWithMinimumTimeSteps();
+	return 0;
 }

@@ -1,5 +1,5 @@
 #include "EventManager.h"
-
+#include <stdexcpt.h>
 
 
 EventManager::EventManager():mCurrentState(StateType(-1)),mHasFocus(true)
@@ -163,11 +163,22 @@ void EventManager::loadBindings()
 		return; 
 	}
 	std::string line;
+	while (std::getline(bindings, line)) {
+		std::stringstream skipContent(line);
+		std::string data;
+		skipContent >> data;
+		if (data == "---CONFIGURATION---") {
+			//std::cout << "FOUND ---CONFIGURATION---" << std::endl;
+			break;
+		}
+		// TODO throw if not found
+	}
 	while (std::getline(bindings, line)) 
 	{
 		std::stringstream keystream(line);
 		std::string callbackName;
 		keystream >> callbackName;
+		std::cout << "callbackName: " << callbackName << std::endl;
 		Binding* bind = new Binding(callbackName);
 		while (!keystream.eof()) 
 		{
@@ -180,16 +191,20 @@ void EventManager::loadBindings()
 				delete bind; 
 				bind = nullptr; 
 				break; 
-			}
+			}			
 			EventType type = EventType(stoi(keyval.substr(start, end - start)));
-			int code = stoi(keyval.substr(end + delimiter.length(),
-				keyval.find(delimiter, end + delimiter.length())));
+			std::string keyCode =keyval.substr(end + delimiter.length(), keyval.find(delimiter, end + delimiter.length()));
+			auto it = KeysConfiguration.find(keyCode);
+			if (it == KeysConfiguration.end())
+			{
+				throw (std::runtime_error("Not found such key binding " + keyCode));
+			}
+			int code = it->second;
 			EventInfo eventInfo;
 			eventInfo.mEventCode = code;
-
 			bind->bindEvent(type, eventInfo);
+			//std::cout << "keyVal " << keyval <<"code"<<code<< std::endl;
 		}
-
 		if (!addBinding(bind)) 
 		{ 
 			delete bind; 
@@ -197,6 +212,4 @@ void EventManager::loadBindings()
 		bind = nullptr;
 	}
 	bindings.close();
-
-
 }

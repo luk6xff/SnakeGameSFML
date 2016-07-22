@@ -46,7 +46,7 @@ void StateGame::deactivate()
 
 void StateGame::update(const sf::Time & time)
 {
-	mWorld.update();	
+		mWorld.update();
 }
 
 void StateGame::draw()

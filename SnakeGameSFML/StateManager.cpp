@@ -1,3 +1,4 @@
+
 #include "StateManager.h"
 #include "StateIntro.h"
 #include "StateMainMenu.h"
@@ -30,17 +31,7 @@ void StateManager::update(const sf::Time & time)
 	{
 		return;
 	}
-	/*
-
-	if (mStates.back().second->isTranscendent()) 
-	{
-	
-	}
-	else*/ 
-	{//should be always met
-		mStates.back().second->update(time);
-	}
-
+	mStates.back().second->update(time);
 }
 
 void StateManager::draw()
